@@ -1,4 +1,4 @@
-const express = require('express')
+/* const express = require('express')
 const mongoose = require('mongoose')
 
 //making a schema for todo operation
@@ -19,4 +19,4 @@ const todoSchema =mongoose.Schema({
         },
 }) 
 
-module.exports = todoSchema
+module.exports = todoSchema */
