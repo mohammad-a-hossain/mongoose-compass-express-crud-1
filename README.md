@@ -26,3 +26,8 @@
 
  ---
  crud end
+ ---
+ # part 4 additional feature
+ ---
+ **using instance method , static, query helper**
+

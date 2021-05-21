@@ -6,9 +6,9 @@ const router =express.Router()
 const Todo = new mongoose.model('Todo',todoSchema)
 
 // create a data 
- router.post('/', async (req,res)=>{
+ router.post('/', (req,res)=>{
     const newTodo = new Todo(req.body)
-    await newTodo.save((err)=>{
+     newTodo.save((err)=>{
         if(err){
             res.status(5000).json({error: 'there is a server error happen'})
         }else{
