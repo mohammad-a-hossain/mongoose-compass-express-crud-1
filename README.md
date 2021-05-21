@@ -1,10 +1,10 @@
 # part 1
 ---
-..* **package set up** 
-..* **install express ,nodemon,mongoose(npm add mongoose)** 
-..* **app initialization,add middleware, port set, default errorHandler function set**
-..* **make database connection with mongoose** 
-..* **declare routes for todo application**
+1. package set up 
+2. install express ,nodemon,mongoose(npm add mongoose
+3. app initialization,add middleware, port set, default errorHandler function set
+4. make database connection with mongoose
+5. declare routes for todo application
 ---
 # part 2 ODM (object data modeling/mapping)
 . _making a folder for route handler_ *
