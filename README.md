@@ -15,14 +15,14 @@
  
  # part 3 using postman
  ---
- . **insert a post** using postman 
- . **open mongodb compass to see the data**
- . **insert multiple data into the database**
- . **update a data**
- . **get s single todo**
- .**get multiple todo**
- . **delete single data**
- .**delete multiple data**
+ 1. **insert a post** using postman 
+ 2. **open mongodb compass to see the data**
+ 3. **insert multiple data into the database**
+ 4. **update a data**
+ 5. **get s single todo**
+ 6. **get multiple todo**
+ 7. **delete single data**
+ 8. **delete multiple data**
 
  ---
  crud end
