@@ -1,6 +1,6 @@
 const express = require('express')
-
 const mongoose = require('mongoose')
+const todoHandler =require('./routHandler/todoHandler')
 
 const app =express()
 app.use(express.json())
@@ -14,7 +14,7 @@ mongoose.connect('mongodb://localhost/todos',{
 .then(()=>console.log('connection success'))
 .catch((err)=>console.log(err))
 
-
+app.use('/todo', todoHandler)
 
 function errorHandler(err,req,res,next){
     if(res.headerSent){

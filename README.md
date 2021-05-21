@@ -7,11 +7,11 @@
 5. declare routes for todo application
 ---
 # part 2 ODM (object data modeling/mapping)
-. _making a folder for route handler_ *
-. _making a folder for todo schema_*
-. _making all rout path in todohandler.js_
-. _making a schema in todo schema and export to todohandler for implementation a modal_
-. _making a Todo model in todoHandler.js_
+1. _making a folder for route handler_ *
+2. _making a folder for todo schema_*
+3. _making all rout path in todohandler.js_
+4. _making a schema in todo schema and export to todohandler for implementation a modal_
+5. _making a Todo model in todoHandler.js_
  
  # part 3 using postman
  ---
