@@ -33,3 +33,23 @@
  ---
  **using instance method , static, query helper**
 
+ ---
+ # part 5 -Jason Web Token authorization details list
+ 1. _making a userSchema and a separate schema file inside todoSchema folder_
+ 2. _make a userHandler file in routeHandler folder_
+ 3. _make user schema in userSchema js file and export_
+ 4. _make userHander router in index.js and user and import from routeHander_
+ 5. _install bcrypt for password encrypt and hashing function_ (npm install bcrypt)
+ 6. _make userHandler all router set up in userHandler.js_
+ 7.  _set up sign-up router_
+ 8. _set up login router_ ans authenticaton token set up
+ 9. _creating json web token_ install >>>> npm add jsonwebtoken
+ 10. _set jwt secret key in .env file_ and use
+ 11. _install dotenv for middleware_ >> npm add dotenv
+ 12. _import dotenv index.js and make config
+
+
+
+
+
+
