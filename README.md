@@ -14,6 +14,8 @@
 5. _making a Todo model in todoHandler.js_
  
  # part 3 using postman
+
+ 
  ---
  1. **insert a post** using postman 
  2. **open mongodb compass to see the data**

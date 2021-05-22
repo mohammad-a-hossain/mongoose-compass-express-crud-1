@@ -18,6 +18,38 @@
      }
  })
 
+ /* -------------------instance method ,static and query helper---------------------------------- */
+
+//instance method
+todoSchema.methods ={
+    findActive : function(){
+        return mongoose.model('Todo').find({
+            status:'active'
+        })
+    }
+  }
+  todoSchema.methods={
+      findTitle :function(){
+          return mongoose.model('Todo').find({
+              title:'edited by id'
+          })
+      },
+      // using call back function not async await
+      findTitleCallback:function(cb){
+          return mongoose.model('Todo').find({
+              status:'inactive'
+          },cb)
+      }
+  }
+/* -----------------static method---------------------------------- */
+
+todoSchema.statics ={
+    findByJs:function(){
+        return this.find({title:/sumit/i})
+    }
+}
+  
+
 module.exports =todoSchema
 
 

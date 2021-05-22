@@ -46,8 +46,8 @@ await Todo.find({status:"active"},(err,data)=>{
 })
  */
 // get data by method chaining
-router.get('/',async (req,res)=>{
-    await Todo.find({status:'active'}).select({
+router.get('/', (req,res)=>{
+     Todo.find({status:'active'}).select({
         _id:0,
         __v:0,
         description:0
@@ -65,22 +65,20 @@ router.get('/',async (req,res)=>{
     })
 })
 // get data by specific id 
-router.get('/:id', async (req, res)=>{
-await Todo.find({_id:req.params.id},(err,data)=>{
-    if(err){
+/*  router.get('/:id', async (req, res)=>{
+ try{
+    const data = await Todo.find({_id:req.params.id})
+        res.status(200).json({
+        result:data,
+        message:'a specific data show success'
+    })
+ }catch(err){
         res.status(5000).json({
             error: 'there is a server error happen'
         })
-    }else{
-        res.status(200).json({
-            result:data,
-            message:'a specific data show success'
-        })
-    }
-   
-})
- 
-})
+    }        
+}) */
+  
 
 // update a specific data by id
 /* router.put('/:id', async (req,res)=>{
@@ -148,8 +146,40 @@ router.delete('/', async (req,res)=>{
     })
 })
 
+/* ------------------------------using instance method------------------------------------ */
+//custom instance method
+//making a router for active for that disable get('/:id') 
+router.get('/active',async (req,res)=>{
+    const todo = new Todo()
+    const data =await todo.findActive()
+    res.status(200).json({data,})
+})
 
+//making another router for getting title  for that disable get('/:id') 
+router.get('/title', async (req,res)=>{
+    const todo =new Todo()
+    const data = await todo.findTitle()
+    res.status(200).json({data})
+})
 
+// doing callback function noe async await
+router.get('/titleCallback', (req,res)=>{
+    const todo =new Todo()
+          todo.findTitleCallback((err,data)=>{
+              res.status(200).json({data})
+          })
+
+})
+
+/* ------------------using static method---------------------------------------- */
+
+// making a statice method router for search js
+
+router.get('/js', async (req,res)=>{
+    const data =await Todo.findByJs()
+    res.status(200).json({data})
+
+})
 module.exports =router
 
 
