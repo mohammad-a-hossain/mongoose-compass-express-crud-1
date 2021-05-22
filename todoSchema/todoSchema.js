@@ -21,7 +21,7 @@
  /* -------------------instance method ,static and query helper---------------------------------- */
 
 //instance method
-todoSchema.methods ={
+/* todoSchema.methods ={
     findActive : function(){
         return mongoose.model('Todo').find({
             status:'active'
@@ -40,19 +40,35 @@ todoSchema.methods ={
               status:'inactive'
           },cb)
       }
-  }
+  } */
 /* -----------------static method---------------------------------- */
 
-todoSchema.statics ={
+/* todoSchema.statics ={
     findByJs:function(){
         return this.find({title:/sumit/i})
-    }
+    }, */
+
+
+// findby active if data 
+ /*  findActive : function(){
+    return this.find({status:'active'})
+}, */
+//find inactive 
+/* findNode:function(){
+    return this.find({description:/node/i})
 }
-  
+  } */
+
+  /* -----------------query helper ------------------------------------ */
+/*  todoSchema.query ={
+     findLang: function(lang){
+         return this.find({description: new RegExp(lang,"i")})
+     }
+ } */
 
 module.exports =todoSchema
 
-
+ 
 
 
 
