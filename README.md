@@ -52,6 +52,11 @@
 
  15. _import checklogin and set in userHandler a protect for routers_
 
+ --Nb: while login there is a token created instance and it validation 
+ if i want to post or get data by chcklogin i need to get token which will set in header authentication : Bearer token
+ then i can access 
+ -- special thanks to Sumit Saha 
+
 
 
 
