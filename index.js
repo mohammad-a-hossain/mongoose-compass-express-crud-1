@@ -20,14 +20,24 @@ mongoose.connect('mongodb://localhost/todos',{
 
 app.use('/todo', todoHandler)
 app.use('/user', userHandler)
-
+/* 
 function errorHandler(err,req,res,next){
     if(res.headerSent){
         return next(err)
     }else{
         res.status(500).json({error:err})
     }
-}
+} */
+// use the handler
+const  errorHandler =(err,req,res,next)=>{
+    console.log(err)
+    if(res.headerSent){
+        return next(err)
+    }
+        res.status(500).json({error:err})
+    }
+
+app.use(errorHandler)
 
 app.listen(4000, ()=>{
     console.log('this app is listening on port 4000')

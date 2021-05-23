@@ -47,6 +47,11 @@
  10. _set jwt secret key in .env file_ and use
  11. _install dotenv for middleware_ >> npm add dotenv
  12. _import dotenv index.js and make config
+ 13. _generate a token in login router_
+ 14. _route protection set up by middleware make another folder middleware checklogin.js_
+
+ 15. _import checklogin and set in userHandler a protect for routers_
+
 
 
 

@@ -1,12 +1,14 @@
 const express =require('express')
 const mongoose =require('mongoose')
 const todoSchema = require('../todoSchema/todoSchema')
+const checkLogin =require('../middleware/checklogin')
 const router =express.Router()
 
 const Todo = new mongoose.model('Todo',todoSchema)
 
 // create a data 
- router.post('/', (req,res)=>{
+ router.post('/', checkLogin, (req,res)=>{
+ 
     const newTodo = new Todo(req.body)
      newTodo.save((err)=>{
         if(err){
@@ -46,7 +48,8 @@ await Todo.find({status:"active"},(err,data)=>{
 })
  */
 // get data by method chaining
-router.get('/', (req,res)=>{
+router.get('/', checkLogin, (req,res)=>{
+    console.log(req.userName,req.userId)
      Todo.find({status:'active'}).select({
         _id:0,
         __v:0,
