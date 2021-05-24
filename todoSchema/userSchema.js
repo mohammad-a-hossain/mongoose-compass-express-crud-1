@@ -1,24 +1,60 @@
 const express =require('express')
 const mongoose =require('mongoose')
 
-const userSchema =mongoose.Schema({
+const userSchema = mongoose.Schema({
     name:{
         type:String,
-        required:true,
+        required:true
     },
     userName:{
         type:String,
-        required:true,
+        required:true
     },
     password:{
         type:String,
-        required:true,
+        required:true
     },
     status:{
         type:String,
         enum:['active','inactive']
     }
-   
 })
 
-module.exports = userSchema
+module.exports =userSchema
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const express =require('express')
+// const mongoose =require('mongoose')
+
+// const userSchema =mongoose.Schema({
+//     name:{
+//         type:String,
+//         required:true,
+//     },
+//     userName:{
+//         type:String,
+//         required:true,
+//     },
+//     password:{
+//         type:String,
+//         required:true,
+//     },
+//     status:{
+//         type:String,
+//         enum:['active','inactive']
+//     }
+   
+// })
+
+// module.exports = userSchema

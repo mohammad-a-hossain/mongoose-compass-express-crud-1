@@ -1,127 +1,97 @@
-const express =require('express')
-const mongoose =require('mongoose')
-const todoSchema = require('../todoSchema/todoSchema')
-const checkLogin =require('../middleware/checklogin')
+const express = require('express')
+const mongoose= require('mongoose')
+const todoSchema =require('../todoSchema/todoSchema')
 const router =express.Router()
 
 const Todo = new mongoose.model('Todo',todoSchema)
 
-// create a data 
- router.post('/', checkLogin, (req,res)=>{
- 
-    const newTodo = new Todo(req.body)
-     newTodo.save((err)=>{
-        if(err){
-            res.status(5000).json({error: 'there is a server error happen'})
-        }else{
-            res.status(200).json({
-                message:'a data crete success'
-            })
-        }
-    })
-}) 
-// create many data
+router.post('/',(req,res)=>{
+    const newTodo =new Todo(req.body)
+        newTodo.save((err)=>{
+           if(err){
+           res.status(500).json({error:'there is a sever side error happen !!'})
+           }else{
+               res.status(200).json({message:'a todo has created successful'})
+           }
+
+        })  
+})
+
 router.post('/all', async (req,res)=>{
-    await Todo.insertMany(req.body, (err)=>{
-        if(err){
-            res.status(5000).json({error: 'there is a server error happen'})
-        }else{
-            res.status(200).json({
-                message:'many data crete success'
-            })
-        }
-    })
+       await Todo.insertMany(req.body,(err)=>{
+           if(err){
+               res.status(500).json({error:'there is a server error happen!!'})
+           }else{
+               res.status(200).json({message:'al data created success'})
+           }
+       })
 })
 
 // get all data or filtering get data
-/* router.get('/',async (req,res)=>{
+/*  router.get('/',async (req,res)=>{
 await Todo.find({status:"active"},(err,data)=>{
     if(err){
         res.status(5000).json({error: 'there is a server error happen'})
     }else{
         res.status(200).json({
             data,
-            message:'many data crete success'
+            message:'get data success'
         })
     }
 })
-})
- */
+}) */
+
 // get data by method chaining
-router.get('/', checkLogin, (req,res)=>{
-    console.log(req.userName,req.userId)
-     Todo.find({status:'active'}).select({
+ router.get('/', async (req,res)=>{
+    await Todo.find({status:"inactive"}).select({
         _id:0,
         __v:0,
-        description:0
-    }).limit(3).exec((err,data)=>{
+    }).limit(5).exec((err,data)=>{
         if(err){
-            res.status(5000).json({
-                error: 'there is a server error happen'
-            })
+            res.status(5000).json({error: 'there is a server error happen'})
         }else{
             res.status(200).json({
-                result:data,
-                message:'many data show success'
+                data,
+                message:'get data success'
             })
         }
     })
-})
+}) 
 // get data by specific id 
-/*  router.get('/:id', async (req, res)=>{
- try{
-    const data = await Todo.find({_id:req.params.id})
+router.get('/:id', async (req,res)=>{
+    try{
+        const data = await Todo.find({_id:req.params.id})
         res.status(200).json({
-        result:data,
-        message:'a specific data show success'
-    })
- }catch(err){
-        res.status(5000).json({
-            error: 'there is a server error happen'
+            result:data,
+            message:'specific data get success'
         })
-    }        
-}) */
-  
+
+    }catch{
+        res.status(5000).json({error: 'there is a server error happen'})
+    }
+})
 
 // update a specific data by id
-/* router.put('/:id', async (req,res)=>{
+router.put('/:id', async (req,res)=>{
     await Todo.updateOne({_id:req.params.id},{$set:{
-        status:'inactive',
-        title:'edit my title',
+        status:'active',
+        title:'this edited second time'
     },},(err)=>{
         if(err){
-            res.status(5000).json({
-                error:'there is a server error'
-            })
+            res.status(5000).json({error: 'there is a server error happen'})
         }else{
             res.status(200).json({
-                message:'a data update success'
+              
+                message:'data update success'
             })
         }
-    })
-})
- */
-/ // if our require update data need to show in response so do that using options
-router.put('/:id',async (req,res)=>{
-    const result = await Todo.findByIdAndUpdate({_id:req.params.id},{$set:{
-        status:'active',
-        title:'edited by id'
-    },},{new:true,useFindAndModify:false},(err)=>{
-        if(err){
-            res.status(5000).json({
-                error:'there is a server error'
-            })
-        }else{
-            res.status(200).json({
-                message:'a data update success'
-            })
-        }
+
     })
 })
 
-// delete a single data
-router.delete('/:id', async (req,res)=>{
-    await Todo.deleteOne({_id:req.params.id},(err)=>{
+//specific item delete
+router.delete('/:id',  (req,res)=>{
+   Todo.deleteOne({_id:req.params.id},(err)=>{
         if(err){
             res.status(5000).json({
                 error:'there is a server error'
@@ -131,12 +101,12 @@ router.delete('/:id', async (req,res)=>{
                 message:'a data delete success'
             })
         }
+
     })
 })
-
-//delete many data 
-router.delete('/', async (req,res)=>{
-    await Todo.deleteMany({status:'inactive'},(err)=>{
+// all data delete 
+router.delete('/',(req,res)=>{
+    Todo.deleteMany({title:'learning with sumit shaha'},(err)=>{
         if(err){
             res.status(5000).json({
                 error:'there is a server error'
@@ -149,80 +119,4 @@ router.delete('/', async (req,res)=>{
     })
 })
 
-/* ------------------------------using instance method------------------------------------ */
-//custom instance method
-//making a router for active for that disable get('/:id') 
-/* router.get('/active',async (req,res)=>{
-    const todo = new Todo()
-    const data =await todo.findActive()
-    res.status(200).json({data,})
-}) */
-
-//making another router for getting title  for that disable get('/:id') 
-/* router.get('/title', async (req,res)=>{
-    const todo =new Todo()
-    const data = await todo.findTitle()
-    res.status(200).json({data})
-})
-
-// doing callback function noe async await
-router.get('/titleCallback', (req,res)=>{
-    const todo =new Todo()
-          todo.findTitleCallback((err,data)=>{
-              res.status(200).json({data})
-          })
-
-}) */
-
-/* ------------------using static method---------------------------------------- */
-
-// making a statice method router for search js
-
-/* router.get('/js', async (req,res)=>{
-    const data =await Todo.findByJs()
-    res.status(200).json({data})
-
-}) */
-// getting status using static method
-/* router.get('/status' ,async (req,res)=>{
-    const data =await Todo.findActive()
-    res.status(200).json({data})
-})
-router.get('/description' ,async (req,res)=>{
-    const data =await Todo.findNode()
-    res.status(200).json({data})
-})
- */
-/* -----------query helper ------------------------------------------------------------ */
-
-/* router.get('/lang', async (req,res)=>{
-    const data =await Todo.find().findLang('start')
-    res.status(200).json({data})
-}) */
-module.exports =router
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+module.exports = router
