@@ -3,12 +3,11 @@ const mongoose =require('mongoose')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-const userSchema =require('../todoSchema/userSchema')
-const router =express.Router()
-const User = new mongoose.model('User',userSchema)
 
+const userSchema = require('../todoSchema/userSchema')
+const router = express.Router()
+const User = new mongoose.model('User', userSchema)
 
-// create an user with signup
 router.post('/signup', async (req,res)=>{
     try{
         const hashPassword= await bcrypt.hash(req.body.password,10)
@@ -22,7 +21,8 @@ router.post('/signup', async (req,res)=>{
         res.status(200).json({
             message:'an user  crete successful'
         })
-    }catch{
+    }catch(err){
+        console.log(err)
         res.status(500).json({error: 'signup failed'})
     }
   
@@ -30,26 +30,38 @@ router.post('/signup', async (req,res)=>{
 }) 
 
 router.post('/login', async (req,res)=>{
-    const user = await User.find({userName:req.body.userName})
+    try{
+  const user = await User.find({userName:req.body.userName})
     if(user && user.length >0){
-        const isValidUserPass= bcrypt.compare(req.body.password, user[0].password)
-        if(isValidUserPass){
-             const token=jwt.sign({
-                 userName:user[0].userName,
-                 userId: user[0]._id
-             },process.env.JWT_SECRET,{
-                expiresIn:'3 days'
-             })
-             res.status(200).json({
-                 "access_token":token,
-                 "message":"login success"
-             })
+        const isValidPassword = await bcrypt.compare(req.body.password,user[0].password)
+        if(isValidPassword){
+           const token =jwt.sign({
+               userName:user[0].userName,
+               userId : user[0]._id
+           },process.env.JWT_SECRET,{
+               expiresIn:'2 days'
+           })
+           res.status(200).json({
+               message:'login success now'
+           })
+              
         }else{
-            res.status(401).json({error: 'authentication failed'})
+            res.status(401).json({
+                error:'authentication failed'
+            })
         }
 
     }else{
-        res.status(401).json({error: 'authentication failed'})
+        res.status(401).json({
+            error:'authentication failed'
+        })
     }
+    }catch{
+        res.status(401).json({
+            error:'authentication failed'
+        })
+    }
+  
 })
-module.exports = router
+
+module.exports =router

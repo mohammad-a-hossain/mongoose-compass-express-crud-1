@@ -50,8 +50,10 @@
  12. _import dotenv index.js and make config
  13. _generate a token in login router_
  14. _route protection set up by middleware make another folder middleware checklogin.js_
+---
+# route protection
 
- 15. _import checklogin and set in userHandler a protect for routers_
+ 1. _import checklogin and set in userHandler a protect for routers_
 
  --Nb: while login there is a token created instance and it validation 
  if i want to post or get data by chcklogin i need to get token which will set in header authentication : Bearer token

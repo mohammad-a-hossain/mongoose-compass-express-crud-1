@@ -1,7 +1,9 @@
 const express = require('express')
 const mongoose= require('mongoose')
 const todoSchema =require('../todoSchema/todoSchema')
+const checkLogin = require('../middleware/checklogin')
 const router =express.Router()
+
 
 const Todo = new mongoose.model('Todo',todoSchema)
 
@@ -42,7 +44,7 @@ await Todo.find({status:"active"},(err,data)=>{
 }) */
 
 // get data by method chaining
- router.get('/', async (req,res)=>{
+ router.get('/', checkLogin, async (req,res)=>{
     await Todo.find({status:"inactive"}).select({
         _id:0,
         __v:0,
@@ -58,7 +60,7 @@ await Todo.find({status:"active"},(err,data)=>{
     })
 }) 
 // get data by specific id 
-router.get('/:id', async (req,res)=>{
+router.get('/:id', checkLogin, async (req,res)=>{
     try{
         const data = await Todo.find({_id:req.params.id})
         res.status(200).json({
@@ -74,7 +76,7 @@ router.get('/:id', async (req,res)=>{
 // update a specific data by id
 router.put('/:id', async (req,res)=>{
     await Todo.updateOne({_id:req.params.id},{$set:{
-        status:'active',
+        status:'inactive',
         title:'this edited second time'
     },},(err)=>{
         if(err){
