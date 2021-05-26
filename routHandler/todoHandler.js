@@ -74,7 +74,7 @@ router.get('/:id', checkLogin, async (req,res)=>{
 })
 
 // update a specific data by id
-router.put('/:id', async (req,res)=>{
+router.put('/:id', checkLogin, async (req,res)=>{
     await Todo.updateOne({_id:req.params.id},{$set:{
         status:'inactive',
         title:'this edited second time'
@@ -92,7 +92,7 @@ router.put('/:id', async (req,res)=>{
 })
 
 //specific item delete
-router.delete('/:id',  (req,res)=>{
+router.delete('/:id', checkLogin,  (req,res)=>{
    Todo.deleteOne({_id:req.params.id},(err)=>{
         if(err){
             res.status(5000).json({
@@ -107,7 +107,7 @@ router.delete('/:id',  (req,res)=>{
     })
 })
 // all data delete 
-router.delete('/',(req,res)=>{
+router.delete('/',checkLogin,(req,res)=>{
     Todo.deleteMany({title:'learning with sumit shaha'},(err)=>{
         if(err){
             res.status(5000).json({

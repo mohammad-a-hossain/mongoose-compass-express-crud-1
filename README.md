@@ -54,6 +54,7 @@
 # route protection
 
  1. _import checklogin and set in userHandler a protect for routers_
+ ..*  _making a guard for each route to protect if person is not logged in wth webtoken_
 
  --Nb: while login there is a token created instance and it validation 
  if i want to post or get data by chcklogin i need to get token which will set in header authentication : Bearer token
